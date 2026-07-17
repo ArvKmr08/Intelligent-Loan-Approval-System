@@ -1,1 +1,41 @@
 # Importing Basic/Important Libraries
+
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+
+# Reading and Viewing The Data
+
+df = pd.read_csv("loan_approval_data.csv")
+df
+
+# Analyzing The Data
+
+df.head()
+df.info()
+df.isnull().sum()
+df.describe()
+
+# Handeling Missing Values By a sklearn Library "Imputer"
+
+from sklearn.impute import SimpleImputer
+
+categorical_cols = df.select_dtypes(include=["object"]).columns
+numerical_cols = df.select_dtypes(include=["number"]).columns
+
+num_imp = SimpleImputer(strategy="mean")
+df[numerical_cols] = num_imp.fit_transform(df[numerical_cols])
+
+cat_imp = SimpleImputer(strategy="most_frequent")
+df[categorical_cols] = cat_imp.fit_transform(df[categorical_cols])
+
+# Checking for any Null Value
+
+df.head()
+df.isnull().sum() 
+
+
+
+
